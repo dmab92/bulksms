@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+    <menuitem name="Bulk SMS"
+      id="bulk_sms.menu_root" 
+      groups="base.group_user" 
+      web_icon="bulk_sms, static/description/icon.png"
+      />
+
+    <!-- !!!!!!!!!!!!!!!!!!!!!! MENU DE BULK SMS!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+                    <menuitem name="Bulk SMS"
+                    id="bulk_sms.bulksms"
+                    parent="bulk_sms.menu_root"
+                    action="bulk_sms.view_bulk_sms_action"
+                    groups="base.group_user"/>
+
+                    <menuitem name="Type de Soucripteur"
+                    id="bulk_sms.type_soucripteur"
+                    parent="bulk_sms.menu_root"
+                    action="base.action_partner_title_contact"
+                    groups="base.group_user"/>
+
+
+                    <menuitem 
+                        name="Etat du Soucripteur"
+                        id="bulk_sms.etat_soucripteur"
+                        parent="bulk_sms.menu_root"
+                        action="bulk_sms.view_bulk_souscripteur_action"
+                        groups="base.group_user"/>
+                   
+
+                <menuitem 
+                        name="Les Locataires"
+                        id="bulk_sms.locataires"
+                        parent="bulk_sms.menu_root"
+                        action="bulk_sms.view_locataire_action"
+                        groups="base.group_user"/>
+
+
+                <menuitem 
+                        name="Envoyer les SMS"
+                        id="bulk_sms.locataires_bluk"
+                        parent="bulk_sms.menu_root"
+                        action="bulk_sms.view_bulk_locataire_sms_action"
+                        groups="base.group_user"/>
+
+                    
+
+                  
+
+
+    </data>
+</odoo>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record model="ir.ui.view" id="view_bulk_locataire_sms_tree">
+            <field name="name">Campagne de SMS</field>
+            <field name="model">locataire.bulk.sms</field>
+            <field name="arch" type="xml">
+                <tree string="Campagne de SMS Envoyer">
+                    <field name="name"/>
+                    <field name="date_register"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_bulk_locataire_sms_form">
+            <field name="name">Les Campagnes de SMS</field>
+            <field name="model">locataire.bulk.sms</field>
+            <field name="arch" type="xml">
+                <form string="Apprenants">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es pour l'envoi de SMS a vos locataires
+                    </p>
+                    <header>
+                        <button name="load_numers"
+                                string="Charger la liste des locataires"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-check"  
+                                attrs="{'invisible': [('state_sms','=','send')]}"                             
+                        />
+                         <button name="send_sms"
+                                string="Envoyer le SMS aux locataires"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-envelope" 
+                                attrs="{'invisible': [('state_sms','=','send')]}"                              
+                        />
+                    <field name="send_sms" widget="statusbar" statusbar_visible="draft,send" />
+
+                    </header>
+                    <sheet>
+                         <group string="Informations Generales">
+                            <group >
+                                <field name="date_register" />
+                                <field name="name"  required="1"/>
+                            </group>
+                            
+                        </group>
+                        <newline />
+
+                        <notebook colspan="4">
+                            <page string="Les Locataires Actifs">
+                                <field name="line_locataires"  colspan="4" create="0">
+                                    <tree string="Les locataires Actifs" editable="top">
+                                        <field name="civility"/>
+                                        <field name="name" string="Noms et Prénoms"/>
+                                        <field name="phone" string="Téléphone" />
+                                        <field name="date_next_pay"/>
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_bulk_locataire_sms_action" model="ir.actions.act_window">
+            <field name="name">Liste des LOCATAIRES</field>
+            <field name="res_model">locataire.bulk.sms</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_id" ref="view_bulk_locataire_sms_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos Campagne de SMS ici
+              </p><p>
+                Pour creer une Campagne de SMS, 
+                cliquer sur le buton creer en haut a gauche de ce message
+              </p>
+            </field>
+        </record>
+
+
+<!-- Les LOCATAIRES-->
+
+        <record model="ir.ui.view" id="view_locataire_from">
+            <field name="name">Etat des Souscripteurs</field>
+            <field name="model">bulk.locataire</field>
+            <field name="arch" type="xml">
+                <form string="Les Locataires">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Locataires
+                        </p>
+                    <header>
+                       
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Informations Generales">
+                                <field name="civility" />
+                                <field name="name" />
+                                <field name="phone" />
+                                <field name="date_register" />
+                                <field name="date_next_pay" />
+                            </group>
+                        </group>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="view_locataire_tree">
+            <field name="name">LISTE DES LOCATAIRES </field>
+            <field name="model">bulk.locataire</field>
+
+            <field name="arch" type="xml">
+                <tree string="LISTE DES LOCATAIRES" >
+                        <field name="civility" />
+                        <field name="name" />
+                        <field name="phone" />
+                        <field name="date_register" />
+                        <field name="date_next_pay" />
+                    
+                </tree>
+            </field>
+        </record>
+        
+
+        <record id="view_locataire_action" model="ir.actions.act_window">
+            <field name="name">LISTE DES LOCATAIRE</field>
+            <field name="res_model">bulk.locataire</field>
+              <field name="view_id" ref="view_locataire_tree"/>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur vos LOCATAIRES
+
+              </p> 
+                Cette interface vous permet d'enregistrer les informations sur les locataires
+            </field>
+        </record>
+
+</odoo>
+
+

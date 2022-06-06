@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_bulk_sms_filter" model="ir.ui.view">
+            <field name="name">bulk.sms.filter</field>
+            <field name="model">bulk.sms</field>
+            <field name="arch" type="xml">
+                <search string="Campagne de SMS">
+                    <field name="name"/>
+                    <field name="date_register"/>
+                    <field name="message"/>
+                    <group expand="0" string="Group By">
+                         <filter string="Date d'envoi" name="groupby_date_register" domain="[]" context="{'group_by': 'date_register'}"/>
+                        <filter string="Message" name="groupby_message" domain="[]" context="{'group_by': 'message'}"/>
+                    </group>
+
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_bulk_sms_tree">
+            <field name="name">Campagne de SMS</field>
+            <field name="model">bulk.sms</field>
+            <field name="arch" type="xml">
+                <tree string="Les Campagnes de SMS">
+                    <field name="name"/>
+                    <field name="date_register"/>
+                    <field name="message"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_bulk_sms_from">
+            <field name="name">Les Campagnes de SMS</field>
+            <field name="model">bulk.sms</field>
+            <field name="arch" type="xml">
+                <form string="Apprenants">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur Les Campagnes de SMS
+                    </p>
+                    <header>
+                        <button name="load_numers"
+                                string="Charger la liste des souscripteurs"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-check"  
+                                attrs="{'invisible': [('state','=','send')]}"                             
+                        />
+                         <button name="send_sms"
+                                string="Envoyer le SMS"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-envelope" 
+                                attrs="{'invisible': [('state','=','send')]}"                              
+                        />
+
+                        <button name="send_whatsapp_message"
+                                string="Envoyer par Whatsapp"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-whatsapp" 
+                                                            
+                        />
+                        
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,send" />
+
+                    </header>
+                    <sheet>
+                         <group string="Informations Generales">
+                            <group >
+                                <field name="date_register" />
+                                <field name="name"  required="1"/>
+                                <field name ="company_ids" widget="many2many_tags" />
+                                 <field name="message" required="1" />
+                                 <field name ="user_id" invisible='1'/>
+                                 <field name="mobile" />
+                                 <field name="state_client"/>
+                            </group>
+                            <group>
+                                <field name="photo" widget="image" class="oe_avatar oe_left" style="max-width:100px;max-height:117px;"/>
+
+                                <field name="attachment_ids"  string="Documents a Envoyer" widget="many2many_binary"/>
+                                <!-- <field name ="souscripteur_etat_ids" widget="many2many_binary"/> -->
+                                
+                            </group>
+                        </group>
+                        <newline />
+
+                        <notebook colspan="4">
+                            <page string="Les Souscripteurs">
+                                <field name="partner_ids"  colspan="4" create="0">
+                                    <tree string="Nos clients" editable="top">
+                                        <field name="name" />
+                                        <field name="phone" string="Telephone" />
+                                        <field name="company_id" />
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <!-- <page string="Les Souscripteurs">
+                                <field name="partner_ids2"  colspan="4">
+                                    <tree string="Nos clients" editable="top">
+                                        <field name="name" />
+                                        <field name="phone" string="Telephone" />
+                                        <field name="company_id" />
+                                    </tree>
+                                </field>
+                            </page> -->
+                        </notebook>
+                    
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_bulk_sms_action" model="ir.actions.act_window">
+            <field name="name">Les Campagnes de SMS</field>
+            <field name="res_model">bulk.sms</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_id" ref="view_bulk_sms_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos Campagne de SMS ici
+              </p><p>
+                Pour creer une Campagne de SMS, 
+                cliquer sur le buton creer en haut a gauche de ce message
+              </p>
+            </field>
+        </record>
+
+
+<!-- ETAT DES SOUSCRIPTEURS-->
+
+        <record model="ir.ui.view" id="view_bulk_souscripteur_from">
+            <field name="name">Etat des Souscripteurs</field>
+            <field name="model">client.bulk.sms.etat</field>
+            <field name="arch" type="xml">
+                <form string="SMS de Masse">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur l'Etat des Souscripteurs
+                        </p>
+                    <header>
+                       
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Informations Generales">
+                                
+                                <field name="name" />
+                                
+                            </group>
+                            
+                        </group>
+
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="view_bulk_souscripteur_tree">
+            <field name="name">Etat des Souscripteurs </field>
+            <field name="model">client.bulk.sms.etat</field>
+
+            <field name="arch" type="xml">
+                <tree string="Etat du Souscripteur" >
+                    
+                    <field name="name"/>
+                    
+                </tree>
+            </field>
+        </record>
+        
+
+        <record id="view_bulk_souscripteur_action" model="ir.actions.act_window">
+            <field name="name">Etat des Souscripteurs</field>
+            <field name="res_model">client.bulk.sms.etat</field>
+              <field name="view_id" ref="view_bulk_souscripteur_tree"/>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur vos SMS de Masse
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations l'etat des souscripteurs
+              </p>
+            </field>
+        </record>
+
+</odoo>
+
+         <!-- <record id="action_view_bulk_sms_action2" model="ir.actions.act_window">
+            <field name="name">Liste des Colis Récus</field>
+            <field name="res_model">colis.colis</field>
+            
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Colis Recus
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des Colis Recus
+              </p>
+            </field>
+        </record>
+ -->
+
+
+
